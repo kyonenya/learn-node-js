@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "tsc": "tsc --watch",
+    "async.ts": "node dist/async.js",
+    "promise.ts": "node dist/promise.js",
     "index.ts": "node dist/index.js"
   },
   "dependencies": {
