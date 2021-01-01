@@ -1,7 +1,7 @@
 import http from 'http';
 import httpStatus from 'http-status-codes';
 import fs from 'fs';
-import * as router from './serve_html_router';
+import * as router from './serveHtml_router';
 
 const port = process.env['WEB_APP_PORT'];
 const htmlContentType = { 'Content-type': 'text/html' };

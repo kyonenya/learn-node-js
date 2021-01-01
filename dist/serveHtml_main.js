@@ -24,7 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const http_1 = __importDefault(require("http"));
 const http_status_codes_1 = __importDefault(require("http-status-codes"));
-const router = __importStar(require("./serve_html_router"));
+const router = __importStar(require("./serveHtml_router"));
 const port = process.env['WEB_APP_PORT'];
 const htmlContentType = { 'Content-type': 'text/html' };
 const plainTextContentType = { 'Content-type': 'text/plain' };
