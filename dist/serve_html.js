@@ -10,13 +10,22 @@ const port = process.env['WEB_APP_PORT'];
 const routes = {
     '/': 'views/index.html'
 };
-http_1.default.createServer((req, res) => {
-    res.writeHead(http_status_codes_1.default.OK, { 'Content-type': 'text/html' });
-    const url = req.url;
-    if (routes[url]) {
-        fs_1.default.readFile(routes[url], (err, data) => {
+http_1.default
+    .createServer((req, res) => {
+    const viewPath = `views${req.url}.html`;
+    console.log(viewPath);
+    console.log(req.url);
+    fs_1.default.readFile(viewPath, (err, data) => {
+        if (err) {
+            res.writeHead(http_status_codes_1.default.NOT_FOUND);
+            res.write('<h1>File Not Found.</h1>');
+        }
+        else {
+            res.writeHead(http_status_codes_1.default.OK, { 'Content-type': 'text/html' });
             res.write(data);
-            res.end();
-        });
-    }
-});
+        }
+        res.end();
+    });
+})
+    .listen(port);
+console.log(`listening... port: ${port}`);

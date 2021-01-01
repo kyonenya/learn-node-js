@@ -9,13 +9,23 @@ const routes: {
   '/': 'views/index.html'
 };
 
-http.createServer((req, res) => {
-  res.writeHead(httpStatus.OK, { 'Content-type': 'text/html' });
-  const url = req.url as string;
-  if (routes[url]) {
-    fs.readFile(routes[url], (err, data) => {
-      res.write(data);
+http
+  .createServer((req, res) => {
+    const viewPath = `views${req.url}.html`;
+    console.log(viewPath);
+    console.log(req.url);
+    fs.readFile(viewPath, (err, data) => {
+      if (err) {
+        res.writeHead(httpStatus.NOT_FOUND);
+        res.write('<h1>File Not Found.</h1>')
+      } else {
+        res.writeHead(httpStatus.OK, { 'Content-type': 'text/html' });
+        res.write(data);
+      }
       res.end();
     });
-  }
-});
+  })
+  .listen(port)
+  ;
+
+console.log(`listening... port: ${port}`);
