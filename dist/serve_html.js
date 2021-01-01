@@ -13,8 +13,6 @@ const routes = {
 http_1.default
     .createServer((req, res) => {
     const viewPath = `views${req.url}.html`;
-    console.log(viewPath);
-    console.log(req.url);
     fs_1.default.readFile(viewPath, (err, data) => {
         if (err) {
             res.writeHead(http_status_codes_1.default.NOT_FOUND);

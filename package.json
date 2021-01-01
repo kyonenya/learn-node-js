@@ -4,7 +4,7 @@
   "scripts": {
     "tsc": "tsc --watch",
     "second_server.ts": "node dist/second_server.js",
-    "async.ts": "node dist/async.js",
+    "serve_html_with_router.ts": "node dist/serve_html_with_router.js",
     "serve_html.ts": "node dist/serve_html.js",
     "index.ts": "node dist/index.js"
   },

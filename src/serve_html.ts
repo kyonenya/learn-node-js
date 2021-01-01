@@ -12,8 +12,6 @@ const routes: {
 http
   .createServer((req, res) => {
     const viewPath = `views${req.url}.html`;
-    console.log(viewPath);
-    console.log(req.url);
     fs.readFile(viewPath, (err, data) => {
       if (err) {
         res.writeHead(httpStatus.NOT_FOUND);
