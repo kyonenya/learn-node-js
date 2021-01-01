@@ -1,8 +1,13 @@
 import express from 'express';
+import ejs from 'ejs';
 import path from 'path';
+import { sendReqParam, respondWithName } from './homeController';
 
 const app = express();
 const port = 3000;
+
+// set ejs
+app.set('view engine', 'ejs');
 
 // encode post data
 app.use(express.urlencoded({ extended: false }));
@@ -16,11 +21,8 @@ app
     console.log(req.body);
     res.send('Post successful!');
   })
-  .get('/items/:vagatable', (req, res) => {
-    // dynamic route
-    const veg = req.params.vagatable;
-    res.send(`This is the page for ${veg}`);
-  })
+  .get('/items/:vagatable', sendReqParam)
+  .get('/name', respondWithName)
   .listen(port, () => {
     console.log(`listening... port: ${port}`);
   });
@@ -30,4 +32,4 @@ app
   .use((req, res, next) => {
     console.log(`request made to: ${req.url}`);
     next(); // next
-  });
+});

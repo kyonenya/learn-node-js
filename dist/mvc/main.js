@@ -5,8 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const path_1 = __importDefault(require("path"));
+const homeController_1 = require("./homeController");
 const app = express_1.default();
 const port = 3000;
+// set ejs
+app.set('view engine', 'ejs');
 // encode post data
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
@@ -18,11 +21,8 @@ app
     console.log(req.body);
     res.send('Post successful!');
 })
-    .get('/items/:vagatable', (req, res) => {
-    // dynamic route
-    const veg = req.params.vagatable;
-    res.send(`This is the page for ${veg}`);
-})
+    .get('/items/:vagatable', homeController_1.sendReqParam)
+    .get('/name', homeController_1.respondWithName)
     .listen(port, () => {
     console.log(`listening... port: ${port}`);
 });
