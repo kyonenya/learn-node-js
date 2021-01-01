@@ -1,38 +1,31 @@
 import express from 'express';
 import ejs from 'ejs';
 import layouts from 'express-ejs-layouts';
-import path from 'path';
-import { sendReqParam, respondWithName } from './homeController';
+import { sendReqParam, sendPost, respondWithName, sendIndexHtml } from './homeController';
+import { logErrors, respondNoResourceFound, respondInternalError } from './errorController';
 
 const app = express();
 const port = 3000;
 
-// set ejs
-app.set('view engine', 'ejs');
-// use express-ejs-layouts
-app.use(layouts);
+app.set('view engine', 'ejs'); // set ejs
+app.use(layouts); // use express-ejs-layouts
 
 // encode post data
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app
-  .get('/', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'index.html'));
-  })
-  .post('/submit', (req, res) => {
-    console.log(req.body);
-    res.send('Post successful!');
-  })
+  .get('/', sendIndexHtml)
+  .post('/submit', sendPost)
   .get('/items/:vagatable', sendReqParam)
   .get('/name/:myName', respondWithName)
-  .listen(port, () => {
-    console.log(`listening... port: ${port}`);
-  });
+  .use(express.static('public')); // serve static files
 
-// middleware for logging
 app
-  .use((req, res, next) => {
-    console.log(`request made to: ${req.url}`);
-    next(); // next
+  .use(logErrors)
+  .use(respondNoResourceFound) // 404
+  .use(respondInternalError); // 500
+  
+app.listen(port, () => {
+  console.log(`listening... port: ${port}`);
 });
