@@ -1,5 +1,6 @@
 import express from 'express';
 import ejs from 'ejs';
+import layouts from 'express-ejs-layouts';
 import path from 'path';
 import { sendReqParam, respondWithName } from './homeController';
 
@@ -8,6 +9,8 @@ const port = 3000;
 
 // set ejs
 app.set('view engine', 'ejs');
+// use express-ejs-layouts
+app.use(layouts);
 
 // encode post data
 app.use(express.urlencoded({ extended: false }));
@@ -22,7 +25,7 @@ app
     res.send('Post successful!');
   })
   .get('/items/:vagatable', sendReqParam)
-  .get('/name', respondWithName)
+  .get('/name/:myName', respondWithName)
   .listen(port, () => {
     console.log(`listening... port: ${port}`);
   });

@@ -4,12 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const express_ejs_layouts_1 = __importDefault(require("express-ejs-layouts"));
 const path_1 = __importDefault(require("path"));
 const homeController_1 = require("./homeController");
 const app = express_1.default();
 const port = 3000;
 // set ejs
 app.set('view engine', 'ejs');
+// use express-ejs-layouts
+app.use(express_ejs_layouts_1.default);
 // encode post data
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
@@ -22,7 +25,7 @@ app
     res.send('Post successful!');
 })
     .get('/items/:vagatable', homeController_1.sendReqParam)
-    .get('/name', homeController_1.respondWithName)
+    .get('/name/:myName', homeController_1.respondWithName)
     .listen(port, () => {
     console.log(`listening... port: ${port}`);
 });

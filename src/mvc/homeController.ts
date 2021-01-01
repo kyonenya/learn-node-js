@@ -6,5 +6,6 @@ export const sendReqParam = (req: Request, res: Response) => {
 };
 
 export const respondWithName = (req: Request, res: Response) => {
-  res.render('index'); // index.ejs
+  const name = req.params.myName;
+  res.render('index', { name });
 }
