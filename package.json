@@ -5,7 +5,6 @@
     "tsc": "tsc --watch",
     "second_server.ts": "node dist/second_server.js",
     "mvc/main.ts": "node dist/mvc/main.js",
-    "class.ts": "node dist/class.js",
     "firstExpress.ts": "node dist/firstExpress.js",
     "curriedFunction.ts": "node dist/curriedFunction.js"
   },
