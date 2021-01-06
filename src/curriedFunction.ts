@@ -5,13 +5,13 @@ const japaneseCalcTax = curriedCalcTax(1.08);
 const humbergerPrice = japaneseCalcTax(100);
 // console.log(humbergerPrice); -> 108
 
-type dbExecutable = (params: number) => string;
+type repositorable = (params: number) => string;
 type useCasable = (params: number) => string;
-type containable = (execute: dbExecutable) => useCasable;
-type _containable = (execute: dbExecutable) => (params: number) => string;
+type containable = (repository: repositorable) => useCasable;
+type _containable = (repository: repositorable) => (params: number) => string;
 
-const execute: dbExecutable = (params) => params.toString();
-const container: containable = (execute: dbExecutable) => (params: number) => execute(params);
+const repository: repositorable = (params) => params.toString();
+const container: containable = (repository: repositorable) => (params: number) => repository(params);
 
 /**
  * repeat exec

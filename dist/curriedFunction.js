@@ -3,8 +3,8 @@ let l;
 const curriedCalcTax = (late) => (price) => price * late;
 const japaneseCalcTax = curriedCalcTax(1.08);
 const humbergerPrice = japaneseCalcTax(100);
-const execute = (params) => params.toString();
-const container = (execute) => (params) => execute(params);
+const repository = (params) => params.toString();
+const container = (repository) => (params) => repository(params);
 /**
  * repeat exec
  */
