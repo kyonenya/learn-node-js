@@ -7,7 +7,7 @@
     "mvc/main.ts": "node dist/mvc/main.js",
     "class.ts": "node dist/class.js",
     "firstExpress.ts": "node dist/firstExpress.js",
-    "index.ts": "node dist/index.js"
+    "curriedFunction.ts": "node dist/curriedFunction.js"
   },
   "dependencies": {
     "@types/ejs": "^3.0.5",
