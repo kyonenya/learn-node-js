@@ -18,18 +18,19 @@ const humbergerPrice = japaneseCalcTax(100);
 type executable = (sql: string) => void;
 type repositorable = (execute: executable, param: number) => void;
 type useCasable = (param: number) => void;
-type containable = (repository: repositorable) => useCasable;
+type controllable = (execute: executable, repository: repositorable) => useCasable;
+type _controllable = (execute: executable, repository: repositorable) => (param: number) => void;
 
-const execute = (sql: string) => {};
-const repository: repositorable = (execute: executable, param) => {
+const controller: _controllable = (execute: executable, repository: repositorable): useCasable => {
+  const useCase = (param: number) => repository(execute, param);
+  return useCase;
+};
+// useCase(param); =>
+const repository: repositorable = (execute: executable, param): void => {
   const sql = `INSERT INTO posts ... VALUES ${param})`;
   return execute(sql);
 };
-const controller = (execute: executable, repository: repositorable) => {
-  const useCase: useCasable = (param: number) => repository(execute, param);
-  return useCase;
-};
-
+const execute = (sql: string) => null;
 
 /**
  * repeat exec

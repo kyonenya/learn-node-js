@@ -8,15 +8,16 @@ const humbergerPrice = japaneseCalcTax(100);
     const repository = (params) => params.toString();
     const container = (repository) => (params) => repository(params);
 }
-const execute = (sql) => { };
-const repository = (execute, param) => {
-    const sql = `INSERT INTO posts ... VALUES ${param})`;
-    return execute(sql);
-};
 const controller = (execute, repository) => {
     const useCase = (param) => repository(execute, param);
     return useCase;
 };
+// useCase(param); =>
+const repository = (execute, param) => {
+    const sql = `INSERT INTO posts ... VALUES ${param})`;
+    return execute(sql);
+};
+const execute = (sql) => null;
 /**
  * repeat exec
  */
