@@ -3,8 +3,20 @@ let l;
 const curriedCalcTax = (late) => (price) => price * late;
 const japaneseCalcTax = curriedCalcTax(1.08);
 const humbergerPrice = japaneseCalcTax(100);
-const repository = (params) => params.toString();
-const container = (repository) => (params) => repository(params);
+// console.log(humbergerPrice); -> 108
+{
+    const repository = (params) => params.toString();
+    const container = (repository) => (params) => repository(params);
+}
+const execute = (sql) => { };
+const repository = (execute, param) => {
+    const sql = `INSERT INTO posts ... VALUES ${param})`;
+    return execute(sql);
+};
+const controller = (execute, repository) => {
+    const useCase = (param) => repository(execute, param);
+    return useCase;
+};
 /**
  * repeat exec
  */

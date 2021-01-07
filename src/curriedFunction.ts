@@ -5,13 +5,31 @@ const japaneseCalcTax = curriedCalcTax(1.08);
 const humbergerPrice = japaneseCalcTax(100);
 // console.log(humbergerPrice); -> 108
 
-type repositorable = (params: number) => string;
-type useCasable = (params: number) => string;
-type containable = (repository: repositorable) => useCasable;
-type _containable = (repository: repositorable) => (params: number) => string;
+{
+  type repositorable = (params: number) => string;
+  type useCasable = (params: number) => string;
+  type containable = (repository: repositorable) => useCasable;
+  type _containable = (repository: repositorable) => (params: number) => string;
+  
+  const repository: repositorable = (params) => params.toString();
+  const container: containable = (repository: repositorable) => (params: number) => repository(params);
+}
 
-const repository: repositorable = (params) => params.toString();
-const container: containable = (repository: repositorable) => (params: number) => repository(params);
+type executable = (sql: string) => void;
+type repositorable = (execute: executable, param: number) => void;
+type useCasable = (param: number) => void;
+type containable = (repository: repositorable) => useCasable;
+
+const execute = (sql: string) => {};
+const repository: repositorable = (execute: executable, param) => {
+  const sql = `INSERT INTO posts ... VALUES ${param})`;
+  return execute(sql);
+};
+const controller = (execute: executable, repository: repositorable) => {
+  const useCase: useCasable = (param: number) => repository(execute, param);
+  return useCase;
+};
+
 
 /**
  * repeat exec
