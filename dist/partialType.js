@@ -30,10 +30,10 @@ const func1 = g; // -> OK 返り値は余計なものを付け足してもいい
 }
 {
     const controller = (execute, repository) => {
-        const useCase = ({}) => repository({ execute });
-        //  const args = {}
-        //  const re = useCase(args);
-        return useCase;
+        const execRepository = ({}) => repository({ execute });
+        const args = {};
+        execRepository(args);
+        return execRepository;
     };
     // useCase(param); =>
     const repository = ({ execute }) => {

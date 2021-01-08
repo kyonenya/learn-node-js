@@ -62,13 +62,14 @@ type executable = (sql: string) => void;
 type repositorable = ({ execute }: {
   execute: executable; // optional
 }) => void;
+type execRepository = ({}) => void;
 type controllable = (execute: executable, repository: repositorable) => repositorable;
 
 const controller: controllable = (execute: executable, repository: repositorable) => {
-  const useCase: repositorable = ({}) => repository({ execute });
-//  const args = {}
-//  const re = useCase(args);
-  return useCase;
+  const execRepository = ({}) => repository({ execute });
+    const args = {}
+    execRepository(args);
+  return execRepository;
 };
 // useCase(param); =>
 const repository: repositorable = ({ execute }): void => {
