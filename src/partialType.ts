@@ -25,4 +25,29 @@ const g = (args: nsb) => ({ s: args.s, n: args.n });
 type G2 = (args: nsb) => { s: string, n: number, b: boolean };
 
 const func1: G1 = g; // -> OK 返り値は余計なものを付け足してもいい
-const func2: G2 = g; // -> Error 返り値は欠けてはいけない
+// const func2: G2 = g; // -> Error 返り値は欠けてはいけない
+
+{
+
+type executable = (sql: string) => void;
+type repositorable = ({ execute, param }: {
+  execute: executable; // optional
+  param: number;
+}) => void;
+type controllable = (execute: executable, repository: repositorable) => repositorable;
+
+// linter: ts(6385)
+const controller: controllable = (execute: executable, repository: repositorable) => {
+  const useCase: repositorable = ({ param }: {
+    param: number;
+  }) => repository({ execute, param });
+  return useCase;
+};
+// useCase(param); =>
+const repository: repositorable = ({ execute, param }): void => {
+  const sql = `INSERT INTO posts ... VALUES ${param})`;
+  return execute(sql);
+};
+const execute = (sql: string) => null;
+
+}
