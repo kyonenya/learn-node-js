@@ -4,11 +4,11 @@
         // const param = { name: 'posts' };
         let param = { name: '' };
         const setParam = (arg) => param = arg;
-        setParam({ name: 'posts' });
         const sql = `SELECT * FROM ${param.name}`;
-        return () => execute(sql);
+        return [() => execute(sql), setParam];
     };
     const execute = (sql) => console.log(sql);
-    const invoke = repository(execute);
+    const [invoke, setParam] = repository(execute);
+    setParam({ name: 'manuscripts' });
     invoke();
 }
